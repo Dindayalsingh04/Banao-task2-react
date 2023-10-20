@@ -33,9 +33,7 @@ function App() {
       ) : users.length > 0 ? (
         <>
           <div className="flex h-screen flex-row">
-            <div
-              className="w-1/2  mt-9 flex justify-center items-center overflow-y-scroll"
-            >
+            <div className="w-1/2  mt-9 flex justify-center items-center overflow-y-scroll">
               <div className="  h-screen ">
                 <UserList
                   users={users}
@@ -45,7 +43,9 @@ function App() {
               </div>
             </div>
             <div className="w-1/2 items-center justify-center">
-              <UserDetails user={selectedUser} />
+              <>
+              <UserDetails user={selectedUser}/>
+              </>
             </div>
           </div>
         </>

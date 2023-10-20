@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { InfinitySpin } from "react-loader-spinner";
 
 function UserDetails({ user }) {
-  window.addEventListener("load", function () {
-    hideLoader();
-    showContent();
-  });
+  const [data, setData] = useState(null);
 
-  function hideLoader() {
-    const loader = document.querySelector(".loader");
-    loader.classList.add("hidden");
-  }
-
-  function showContent() {
-    const content = document.querySelector(".content");
-    content.classList.remove("hidden");
-  }
-
+  useEffect(() => {
+    // Simulate an API call to fetch data, including images
+    setTimeout(() => {
+      fetch("https://602e7c2c4410730017c50b9d.mockapi.io/users ")
+        .then((response) => response.json())
+        .then((responseData) => {
+          // Set the data, including images, in the state
+          setData(responseData);
+        })
+        .catch((error) => {
+          console.error("API request failed", error);
+        });
+    }, 8000); // Simulated 8-second delay
+  }, []);
   return (
     <div className="flex flex-row px-5 w-502 h-755 flex-shrink-0 justify-center items-center mt-20">
       {user ? (
@@ -28,16 +29,21 @@ function UserDetails({ user }) {
           </section>
           <section className="flex flex-col items-center">
             <div className="w-[156px] h-[138px] flex-shrink-0 ">
-              <div className="">
+              {data ? (
+                // Data, including images, has been loaded
+                <div>
+                  {" "}
+                  <div className=" w-[156px] h-[138px] flex-shrink-0 ">
+                    <img
+                      src={user.avatar}
+                      alt="User Profile"
+                      className=" rounded-full mt-7"
+                    />
+                  </div>
+                </div>
+              ) : (
                 <InfinitySpin width="200" color="#4fa94d" />
-              </div>
-              <div className="content hidden">
-                <img
-                  src={user.avatar}
-                  alt="User Profile"
-                  className=" rounded-full mt-7"
-                />
-              </div>
+              )}
             </div>
             <div className="text-black text-lg font-medium self-center mt-8 ">
               <p className="text-black font-Montserrat text-base font-normal font-semibold leading-normal">
