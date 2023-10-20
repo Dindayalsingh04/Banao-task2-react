@@ -1,6 +1,22 @@
 import React from "react";
+import { InfinitySpin } from "react-loader-spinner";
 
 function UserDetails({ user }) {
+  window.addEventListener("load", function () {
+    hideLoader();
+    showContent();
+  });
+
+  function hideLoader() {
+    const loader = document.querySelector(".loader");
+    loader.classList.add("hidden");
+  }
+
+  function showContent() {
+    const content = document.querySelector(".content");
+    content.classList.remove("hidden");
+  }
+
   return (
     <div className="flex flex-row px-5 w-502 h-755 flex-shrink-0 justify-center items-center mt-20">
       {user ? (
@@ -11,12 +27,17 @@ function UserDetails({ user }) {
             </p>
           </section>
           <section className="flex flex-col items-center">
-            <div className="w-[156px] h-[138px] flex-shrink-0">
-              <img
-                src={user.avatar}
-                alt="User Profile"
-                className=" rounded-full mt-7"
-              />
+            <div className="w-[156px] h-[138px] flex-shrink-0 ">
+              <div className="">
+                <InfinitySpin width="200" color="#4fa94d" />
+              </div>
+              <div className="content hidden">
+                <img
+                  src={user.avatar}
+                  alt="User Profile"
+                  className=" rounded-full mt-7"
+                />
+              </div>
             </div>
             <div className="text-black text-lg font-medium self-center mt-8 ">
               <p className="text-black font-Montserrat text-base font-normal font-semibold leading-normal">
